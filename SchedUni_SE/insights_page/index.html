@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <span>Insights</span>
+      <span class="arrow">&gt;</span>
+      <span class="arrow">&lt;</span>
+    </div>
+    <div class="header-right">
+      <span class="icon">🔔</span>
+      <span class="icon">🔍</span>
+      <span class="icon">⫶</span>
+      <span class="profile">P</span>
+    </div>
+  </header>
+  <div class="container">
+    <div class="faculty-card card">
+      <div class="faculty-content">
+        <b><h1>Know Your Faculty</h1> </b>
+        <button id="viewFacultyButton">View</button>
+      </div>
+      <div class="faculty-image">
+        <img src="girl-with-laptop-sitting-and-freelance-or-studying-concept-free-vector.png" alt="Faculty">
+      </div>
+    </div>
+    <div class="side-cards">
+      <div class="performance-card card">
+        <h3>Performance</h3>
+        <div class="performance-chart">
+          <div class="performance-bar">
+            <div class="bar-label">MAD</div>
+            <div class="bar" data-value="50"></div>
+          </div>
+          <div class="performance-bar">
+            <div class="bar-label">SE</div>
+            <div class="bar" data-value="100"></div>
+          </div>
+          <div class="performance-bar">
+            <div class="bar-label">SEMINAR</div>
+            <div class="bar" data-value="70"></div>
+          </div>
+          <div class="performance-bar">
+            <div class="bar-label">COA</div>
+            <div class="bar" data-value="40"></div>
+          </div>
+          <div class="performance-bar">
+            <div class="bar-label">Machine learning</div>
+            <div class="bar" data-value="80"></div>
+          </div>
+        </div>
+      </div>
+      <div class="assignments-card card">
+        <h3>Assignments</h3>
+        <div class="assignments-content">
+          <div class="assignments-percentage">76% Completed</div>
+          <div class="assignments-chart">
+            <div class="chart-inner"></div>
+          </div>
+          <div class="assignments-legend">
+            <div><span class="completed"></span> Completed</div>
+            <div><span class="remaining"></span> Remaining</div>
+          </div>
+        </div>
+        <div class="toggle-assignments">
+          <span class="arrow">&#9650;</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="work-section">
+    <h2>Work</h2>
+    <table class="work-table">
+      <thead>
+        <tr>
+          <th>To do</th>
+          <th>Due date</th>
+          <th>No. of Students submitted</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1. MAD assignment</td>
+          <td>26-04-2025</td>
+          <td>
+            <div class="progress-bar" data-value="81">
+              <span class="progress-value"></span>
+            </div>
+            <span class="percentage">81%</span>
+          </td>
+          <td>20 points</td>
+        </tr>
+        <tr>
+          <td>2. Seminar Assignment</td>
+          <td>27-04-2025</td>
+          <td>
+            <div class="progress-bar seminar" data-value="63">
+              <span class="progress-value"></span>
+            </div>
+            <span class="percentage">63%</span>
+          </td>
+          <td>50 points</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
