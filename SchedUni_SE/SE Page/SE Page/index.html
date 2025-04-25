@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SchedUni - Course Page</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="header">
+    <div class="title">
+      <h1>2025 SE</h1>
+      <p>CSE 6</p>
+    </div>
+    <img src="SE-CSE6.png" alt="Devices" class="header-image">
+  </div>
+
+  <div class="content">
+    <div class="sidebar">
+      <h3>Upcoming</h3>
+      <p class="due">Due Today</p>
+      <p class="report"><em>Progress Report</em></p>
+      <a href="#" class="view-all">View all</a>
+    </div>
+    <div class="main">
+      <div class="announcement-box">
+        <div class="profile-icon">M</div>
+        <input type="text" id="announcementInput" placeholder="Announce something to your class">
+        <button onclick="postAnnouncement()">Post</button>
+      </div>
+
+      <div id="posts">
+        <div class="post">
+          <p class="author">Nishtha Puthela<br><span class="date">Feb 18</span></p>
+          <p class="message">
+            As informed prior, the best projects will be given a chance to integrate with Unisphere and see their software module into production and how does it play in real life with real users.
+          </p>
+          <div class="comment-box">
+            <div class="profile-icon">M</div>
+            <input type="text" placeholder="Add class comment...">
+          </div>
+        </div>
+
+        <div class="post">
+          <p class="author">Nishtha Puthela<br><span class="date">Feb 16</span></p>
+          <p class="message">
+            Tuesday's class is as per schedule. Re-scheduling will happen for Wednesday/Thursday's sessions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
