@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .container {
+    display: flex;
+    width: 100%;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    background: #f9f9f9;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .logo {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar {
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .nav-menu a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 0;
+    display: block;
+  }
+  
+  .nav-menu a.active {
+    font-weight: bold;
+  }
+  
+  .logout-btn {
+    margin-top: auto;
+    background: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .dark-mode-toggle {
+    margin-top: 20px;
+  }
+  
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .profile-initial {
+    background: #d43f8d;
+    color: white;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  /* Settings */
+  .settings h1 {
+    margin-bottom: 20px;
+  }
+  
+  .settings-content {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .left-panel {
+    flex: 1;
+  }
+  
+  .right-panel {
+    flex: 2;
+  }
+  
+  .left-panel h2, .right-panel h2 {
+    margin-bottom: 10px;
+  }
+  
+  #editProfileBtn {
+    background: #b2f5ea;
+    border: none;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .change-password {
+    margin-bottom: 30px;
+  }
+  
+  .account-options {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .account-options li {
+    margin: 10px 0;
+  }
+  
+  .profile-pic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  #profilePic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  .pic-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .edit {
+    background: #b2f5ea;
+  }
+  
+  .delete {
+    background: #7f9cf5;
+    color: white;
+  }
+  
+  .user-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  .illustration {
+    margin-top: 20px;
+    text-align: right;
+  }
+  
+  /* Dark mode */
+  body.dark {
+    background: #222;
+    color: #eee;
+  }
+  
+  body.dark .sidebar {
+    background: #333;
+  }
+  
+  body.dark .nav-menu a {
+    color: #eee;
+  }
+  
+  body.dark .main-content {
+    background: #222;
+  }
+  
