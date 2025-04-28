@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#bdf9ff] min-h-screen flex items-center justify-center p-4">
+  <main class="max-w-[1400px] w-full bg-[#bdf9ff] flex flex-col md:flex-row items-center md:items-start md:justify-center gap-8 md:gap-20 px-6 py-12">
+    
+    <!-- Teacher Image Section -->
+    <div class="flex-1 relative hidden md:flex items-end justify-center h-full px-10">
+      <img src="teacherlogin.png" alt="Teacher" class="w-full max-w-[500px] h-[750px] object-contain object-bottom" />
+    </div>
+
+    <!-- Login Form Section -->
+    <section class="w-full max-w-md scale-110">
+      <div class="flex items-center gap-2 mb-6">
+        <button class="bg-white text-black text-xs font-semibold rounded-full px-4 py-1" type="button">
+          Student
+        </button>
+        <button class="bg-[#4b4fa1] text-white text-xs font-semibold rounded-full px-5 py-1" type="button">
+          Teacher
+        </button>
+      </div>
+
+      <h1 class="text-[#1a237e] font-extrabold text-5xl leading-snug mb-8">
+        HELLO,
+        <br/>
+        WELCOME BACK
+      </h1>
+
+      <form class="flex flex-col gap-4">
+        <input class="px-4 py-3 rounded-sm border border-transparent focus:outline-none focus:ring-2 focus:ring-[#4b4fa1] text-base" placeholder="Username or E-mail" type="text" />
+        <input class="px-4 py-3 rounded-sm border border-transparent focus:outline-none focus:ring-2 focus:ring-[#4b4fa1] text-base" placeholder="Password" type="password" />
+
+        <div class="flex justify-between items-center text-xs text-[#4b4fa1] mt-1 mb-4">
+          <label class="flex items-center gap-1 cursor-pointer select-none">
+            <input class="w-4 h-4 border border-[#4b4fa1] rounded-sm checked:bg-[#4b4fa1] checked:border-[#4b4fa1] focus:ring-0" type="checkbox" />
+            Remember me
+          </label>
+          <button class="underline hover:text-[#2c2f8a]" type="button">
+            Forgot Password?
+          </button>
+        </div>
+
+        <button class="bg-[#4b4fa1] text-white font-semibold text-base py-3 rounded-sm hover:bg-[#3a3f8a] transition-colors" type="submit">
+          Login
+        </button>
+      </form>
+
+      <p class="text-[#4b4fa1] text-xs mt-4">
+        Don’t have an Account?
+        <button class="font-semibold underline hover:text-[#2c2f8a]" type="button">
+          click here
+        </button>
+      </p>
+
+      <div class="flex gap-4 mt-6">
+        <img src="app.png" alt="App Store badge black and white" class="h-10 w-auto object-contain cursor-pointer" />
+        <img src="google.png" alt="Google Play badge black and white" class="h-10 w-auto object-contain cursor-pointer" />
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
