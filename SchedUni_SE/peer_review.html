@@ -142,12 +142,12 @@
       'Harshdeep',
       'Ansh Adhikari'
     ];
-
+  
     function filterStudents() {
       const selection = document.getElementById('assignmentSelect').value;
       const list = document.getElementById('submissionList');
       list.innerHTML = '';
-
+  
       if (selection === 'Software Engineering') {
         students.forEach((student, index) => {
           const card = document.createElement('div');
@@ -155,7 +155,7 @@
           card.innerHTML = `
             <h2>${student}</h2>
             <div class="buttons">
-              <button class="view-btn">View</button>
+              <button class="view-btn" onclick="viewReviews('${student}')">View</button>
               <button class="review-btn" onclick="openReviewForm('${student}')">Write Review</button>
             </div>
           `;
@@ -165,15 +165,77 @@
         list.innerHTML = `<div class="no-group">No group added</div>`;
       }
     }
-
+  
     function openReviewForm(studentName) {
       const form = document.getElementById('reviewTemplate');
       const title = document.getElementById('reviewTitle');
       title.textContent = `Write Review for ${studentName}`;
       form.style.display = 'block';
       form.scrollIntoView({ behavior: 'smooth' });
+  
+      // Set submit button to current student
+      const submitButton = form.querySelector('.submit-review');
+      submitButton.onclick = function () {
+        submitReview(studentName);
+      };
+    }
+  
+    function submitReview(studentName) {
+      const form = document.getElementById('reviewTemplate');
+      const textareas = form.querySelectorAll('textarea');
+      const ratingSelect = form.querySelector('select');
+  
+      const reviewData = {
+        strengths: textareas[0].value,
+        improvements: textareas[1].value,
+        comments: textareas[2].value,
+        rating: ratingSelect.value,
+        timestamp: new Date().toLocaleString()
+      };
+  
+      // Save to localStorage
+      let existingReviews = JSON.parse(localStorage.getItem('peerReviews')) || {};
+      if (!existingReviews[studentName]) {
+        existingReviews[studentName] = [];
+      }
+      existingReviews[studentName].push(reviewData);
+      localStorage.setItem('peerReviews', JSON.stringify(existingReviews));
+  
+      // Clear form after submit
+      textareas.forEach(textarea => textarea.value = '');
+      ratingSelect.selectedIndex = 0;
+      form.style.display = 'none';
+      alert('Review submitted successfully!');
+    }
+  
+    function viewReviews(studentName) {
+      let existingReviews = JSON.parse(localStorage.getItem('peerReviews')) || {};
+  
+      if (existingReviews[studentName] && existingReviews[studentName].length > 0) {
+        let reviewList = existingReviews[studentName].map((review, index) => `
+          <div style="background: #fff; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h4>Review ${index + 1} (${review.timestamp})</h4>
+            <strong>Strengths:</strong> ${review.strengths}<br>
+            <strong>Areas to Improve:</strong> ${review.improvements}<br>
+            <strong>Comments:</strong> ${review.comments}<br>
+            <strong>Rating:</strong> ${review.rating}
+          </div>
+        `).join('');
+  
+        const list = document.getElementById('submissionList');
+        list.innerHTML = `
+          <h2 style="text-align: center;">Reviews for ${studentName}</h2>
+          ${reviewList}
+          <div style="text-align:center; margin-top: 20px;">
+            <button onclick="filterStudents()" style="background:#007bff; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Back</button>
+          </div>
+        `;
+      } else {
+        alert('No reviews available for ' + studentName);
+      }
     }
   </script>
+  
 
 </body>
 </html>
