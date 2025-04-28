@@ -2,14 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SchedUni Home</title>
-  <link rel="stylesheet" href="homepage.css"/>
+  <link rel="stylesheet" href="homepage.css" />
   <style>
     /* Popup form style */
-    #courseForm {
+    #courseForm, #overlay {
       display: none;
       position: fixed;
+      z-index: 1000;
+    }
+    #overlay {
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    #courseForm {
       top: 20%;
       left: 50%;
       transform: translate(-50%, -20%);
@@ -18,15 +27,6 @@
       border: 2px solid #444;
       border-radius: 10px;
       box-shadow: 0 0 10px #aaa;
-      z-index: 1000;
-    }
-    #overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
     }
     .crud-buttons {
       margin-top: 10px;
@@ -41,19 +41,23 @@
       font-size: 16px;
       cursor: pointer;
     }
+    
+    /* Color classes for course cards */
+    .card.green { background-color: #ccf5cc; }
+    .card.blue { background-color: #ccc9f9; }
+    .card.red { background-color: #f9cccc; }
+    .card.orange { background-color: #f9e1cc; }
+    .card.yellow { background-color: #f7fda0; }
+    .card.cyan { background-color: #ccf9f7; }
+    .card.purple { background-color: #e0a1f7; }  /* Purple color */
+    .card.pink { background-color: #f7a1d2; }    /* Pink color */
+    .card.brown { background-color: #d1a27e; }   /* Brown color */
+    .card.grey { background-color: #e0e0e0; }    /* Grey color */
+
   </style>
 
   <script>
-    function searchCourse() {
-      var input = document.getElementById("searchBox").value.toLowerCase().trim();
-      if (input === "software engineering") {
-        window.location.href = "se.html";
-      } else {
-        alert("Course not found!");
-      }
-    }
-
-    let courses = [
+    let courses = JSON.parse(localStorage.getItem("courses")) || [
       { name: "Project 2", teacher: "Kiran Khattar", day: "Wednesday", due: "Friday", place: "NB 4th Floor", color: "green" },
       { name: "Machine Learning", teacher: "Anantha Rao", day: "Monday & Wednesday", due: "Wednesday", place: "GA 203", color: "blue" },
       { name: "Software Engineering", teacher: "Nishtha Phutela", day: "Saturday & Monday", due: "Tomorrow", place: "GA 102", color: "red" },
@@ -112,6 +116,7 @@
         courses.push(newCourse);
       }
 
+      localStorage.setItem("courses", JSON.stringify(courses)); // Save courses to localStorage
       displayCourses();
       closeForm();
     }
@@ -119,6 +124,7 @@
     function deleteCourse(index) {
       if (confirm("Are you sure you want to delete this course?")) {
         courses.splice(index, 1);
+        localStorage.setItem("courses", JSON.stringify(courses)); // Update localStorage
         displayCourses();
       }
     }
@@ -135,13 +141,24 @@
       editIndex = index;
     }
 
+    function searchCourse() {
+      var input = document.getElementById("searchBox").value.toLowerCase().trim();
+      if (input === "software engineering") {
+        window.location.href = "se.html";
+      } else {
+        alert("Course not found!");
+      }
+    }
+
     window.onload = displayCourses;
   </script>
 </head>
 
 <body>
+  <!-- Overlay -->
   <div id="overlay" onclick="closeForm()"></div>
 
+  <!-- Popup Form -->
   <div id="courseForm">
     <form id="form" onsubmit="event.preventDefault(); saveCourse();">
       <h3>Add / Edit Course</h3>
@@ -157,12 +174,17 @@
         <option value="orange">Orange</option>
         <option value="yellow">Yellow</option>
         <option value="cyan">Cyan</option>
+        <option value="purple">Purple</option>
+        <option value="pink">Pink</option>
+        <option value="brown">Brown</option>
+        <option value="grey">Grey</option>
       </select><br><br>
       <button type="submit">Save</button>
       <button type="button" onclick="closeForm()">Cancel</button>
     </form>
   </div>
 
+  <!-- Sidebar -->
   <div class="sidebar">
     <div class="logo">
       <img src="logo.png" alt="SchedUni Logo" />
@@ -172,10 +194,10 @@
       <li><img src="dashboard image.jpeg" /> <a href="Dashboard.html">Dashboard</a></li>
       <li><img src="academic image.jpeg" /> <a href="insights.html">Academic Insights</a></li>
       <li><img src="time table image.jpeg" /> Time Table</li>
-      <li><img src="peer review image.jpeg"/> <a href="peer_review.html"> Peer Review</a></li>
-      <li><img src="calendar_image.jpeg" /> <a href="todo.html">To-Do list</a></li> 
+      <li><img src="peer review image.jpeg" /> <a href="peer_review.html">Peer Review</a></li>
+      <li><img src="calendar_image.jpeg" /> <a href="todo.html">To-Do List</a></li>
       <li><img src="announcements image.jpeg" /> Announcements</li>
-      <li><img src="account_settings-.jpeg" /><a href="settings.html">Account Settings</a></li>
+      <li><img src="account_settings-.jpeg" /> <a href="settings.html">Account Settings</a></li>
     </ul>
     <div class="logout">
       <img src="logout image.jpeg" />
@@ -183,20 +205,21 @@
     </div>
   </div>
 
+  <!-- Main Content -->
   <div class="main">
     <div class="top-bar">
-      <input type="text" id="searchBox" placeholder="search" onkeydown="if(event.key === 'Enter') searchCourse()" />
+      <input type="text" id="searchBox" placeholder="Search" onkeydown="if(event.key === 'Enter') searchCourse()" />
       <button class="add-course-button" onclick="openForm()">➕ Add Course</button>
     </div>
 
     <div class="courses-header">
       <h3>Courses</h3>
       <span>Semester 4 of 8</span>
-      <a href="#">view all >></a>
+      <a href="#">View all >></a>
     </div>
 
     <div class="cards-container">
-      <!-- Dynamically generated cards -->
+      <!-- Courses dynamically loaded here -->
     </div>
 
     <div class="bottom-image">

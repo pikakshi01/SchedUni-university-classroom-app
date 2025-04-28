@@ -90,6 +90,12 @@
       margin-top: 40px;
       color: #888;
     }
+    .review-list {
+      margin-top: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -116,14 +122,14 @@
   <div id="reviewTemplate" class="review-form">
     <h3 id="reviewTitle"></h3>
     <label>Strengths:</label>
-    <textarea placeholder="What was good?"></textarea>
+    <textarea id="strengths" placeholder="What was good?"></textarea>
     <label>Areas to Improve:</label>
-    <textarea placeholder="Where can they improve?"></textarea>
+    <textarea id="improve" placeholder="Where can they improve?"></textarea>
     <label>Additional Comments:</label>
-    <textarea placeholder="Any other feedback?"></textarea>
+    <textarea id="comments" placeholder="Any other feedback?"></textarea>
     <div class="rating">
       <label>Rating:</label>
-      <select>
+      <select id="rating">
         <option>1 Star</option>
         <option>2 Stars</option>
         <option>3 Stars</option>
@@ -131,9 +137,45 @@
         <option>5 Stars</option>
       </select>
     </div>
-    <button class="submit-review">Submit Review</button>
+    <button class="submit-review" onclick="submitReview()">Submit Review</button>
   </div>
 
+  <!-- Review List -->
+  <div id="reviewList" class="review-list">
+    <h2>All Reviews</h2>
+    <div id="reviewsContainer"></div>
+  </div>
+
+  <!-- Firebase Scripts -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getDatabase, ref, push, child, get, remove, update } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8v5wAvAprzUh0Z5jYWrFlQOE5tSEZlu4",
+      authDomain: "peer-review-b0219.firebaseapp.com",
+      databaseURL: "https://peer-review-b0219-default-rtdb.firebaseio.com",
+      projectId: "peer-review-b0219",
+      storageBucket: "peer-review-b0219.appspot.com",
+      messagingSenderId: "667950195763",
+      appId: "1:667950195763:web:4a0c23b7b286a8f44d6f46",
+      measurementId: "G-Z9X92RPFFY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Make available globally
+    window.db = db;
+    window.ref = ref;
+    window.push = push;
+    window.child = child;
+    window.get = get;
+    window.remove = remove;
+    window.update = update;
+  </script>
+
+  <!-- Main App Script -->
   <script>
     const students = [
       'Maryada Sharma',
@@ -142,20 +184,22 @@
       'Harshdeep',
       'Ansh Adhikari'
     ];
-  
+
+    let selectedStudent = '';
+
     function filterStudents() {
       const selection = document.getElementById('assignmentSelect').value;
       const list = document.getElementById('submissionList');
       list.innerHTML = '';
-  
+
       if (selection === 'Software Engineering') {
-        students.forEach((student, index) => {
+        students.forEach(student => {
           const card = document.createElement('div');
           card.className = 'submission-card';
           card.innerHTML = `
             <h2>${student}</h2>
             <div class="buttons">
-              <button class="view-btn" onclick="viewReviews('${student}')">View</button>
+              <button class="view-btn" onclick="viewReviews('${student}')">View Reviews</button>
               <button class="review-btn" onclick="openReviewForm('${student}')">Write Review</button>
             </div>
           `;
@@ -165,77 +209,109 @@
         list.innerHTML = `<div class="no-group">No group added</div>`;
       }
     }
-  
+
     function openReviewForm(studentName) {
+      selectedStudent = studentName;
       const form = document.getElementById('reviewTemplate');
       const title = document.getElementById('reviewTitle');
       title.textContent = `Write Review for ${studentName}`;
       form.style.display = 'block';
       form.scrollIntoView({ behavior: 'smooth' });
-  
-      // Set submit button to current student
-      const submitButton = form.querySelector('.submit-review');
-      submitButton.onclick = function () {
-        submitReview(studentName);
-      };
     }
-  
-    function submitReview(studentName) {
-      const form = document.getElementById('reviewTemplate');
-      const textareas = form.querySelectorAll('textarea');
-      const ratingSelect = form.querySelector('select');
-  
-      const reviewData = {
-        strengths: textareas[0].value,
-        improvements: textareas[1].value,
-        comments: textareas[2].value,
-        rating: ratingSelect.value,
-        timestamp: new Date().toLocaleString()
-      };
-  
-      // Save to localStorage
-      let existingReviews = JSON.parse(localStorage.getItem('peerReviews')) || {};
-      if (!existingReviews[studentName]) {
-        existingReviews[studentName] = [];
+
+    async function submitReview() {
+      const strengths = document.getElementById('strengths').value;
+      const improve = document.getElementById('improve').value;
+      const comments = document.getElementById('comments').value;
+      const rating = document.getElementById('rating').value;
+
+      if (!selectedStudent) {
+        alert('Please select a student to review.');
+        return;
       }
-      existingReviews[studentName].push(reviewData);
-      localStorage.setItem('peerReviews', JSON.stringify(existingReviews));
-  
-      // Clear form after submit
-      textareas.forEach(textarea => textarea.value = '');
-      ratingSelect.selectedIndex = 0;
-      form.style.display = 'none';
-      alert('Review submitted successfully!');
+
+      const newReview = {
+        student: selectedStudent,
+        strengths,
+        improve,
+        comments,
+        rating,
+        timestamp: Date.now()
+      };
+
+      const dbRef = window.ref(window.db, 'reviews');
+      await window.push(dbRef, newReview);
+
+      alert('Review submitted!');
+      document.getElementById('reviewTemplate').style.display = 'none';
+      document.getElementById('strengths').value = '';
+      document.getElementById('improve').value = '';
+      document.getElementById('comments').value = '';
+      document.getElementById('rating').selectedIndex = 0;
+
+      loadReviews(); // Reload all reviews
     }
-  
-    function viewReviews(studentName) {
-      let existingReviews = JSON.parse(localStorage.getItem('peerReviews')) || {};
-  
-      if (existingReviews[studentName] && existingReviews[studentName].length > 0) {
-        let reviewList = existingReviews[studentName].map((review, index) => `
-          <div style="background: #fff; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h4>Review ${index + 1} (${review.timestamp})</h4>
-            <strong>Strengths:</strong> ${review.strengths}<br>
-            <strong>Areas to Improve:</strong> ${review.improvements}<br>
-            <strong>Comments:</strong> ${review.comments}<br>
-            <strong>Rating:</strong> ${review.rating}
-          </div>
-        `).join('');
-  
-        const list = document.getElementById('submissionList');
-        list.innerHTML = `
-          <h2 style="text-align: center;">Reviews for ${studentName}</h2>
-          ${reviewList}
-          <div style="text-align:center; margin-top: 20px;">
-            <button onclick="filterStudents()" style="background:#007bff; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Back</button>
-          </div>
-        `;
+
+    async function loadReviews() {
+      const reviewsContainer = document.getElementById('reviewsContainer');
+      reviewsContainer.innerHTML = '';
+
+      const dbRef = window.ref(window.db);
+      const snapshot = await window.get(window.child(dbRef, 'reviews'));
+
+      if (snapshot.exists()) {
+        const reviews = snapshot.val();
+        Object.keys(reviews).forEach(reviewId => {
+          const review = reviews[reviewId];
+          const div = document.createElement('div');
+          div.style.borderBottom = '1px solid #ccc';
+          div.style.padding = '10px 0';
+          div.innerHTML = `
+            <strong>${review.student}</strong><br>
+            <b>Strengths:</b> ${review.strengths}<br>
+            <b>Areas to Improve:</b> ${review.improve}<br>
+            <b>Comments:</b> ${review.comments}<br>
+            <b>Rating:</b> ${review.rating}<br>
+            <button onclick="deleteReview('${reviewId}')">Delete</button>
+            <button onclick="editReview('${reviewId}')">Edit</button>
+          `;
+          reviewsContainer.appendChild(div);
+        });
       } else {
-        alert('No reviews available for ' + studentName);
+        reviewsContainer.innerHTML = '<p>No reviews found.</p>';
       }
     }
+
+    function deleteReview(reviewId) {
+      const dbRef = window.ref(window.db, 'reviews/' + reviewId);
+      window.remove(dbRef)
+        .then(() => {
+          alert('Review deleted!');
+          loadReviews(); // Reload reviews after deletion
+        })
+        .catch((error) => {
+          alert('Error deleting review: ' + error);
+        });
+    }
+
+    function editReview(reviewId) {
+      const dbRef = window.ref(window.db, 'reviews/' + reviewId);
+      window.get(dbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const review = snapshot.val();
+          document.getElementById('strengths').value = review.strengths;
+          document.getElementById('improve').value = review.improve;
+          document.getElementById('comments').value = review.comments;
+          document.getElementById('rating').value = review.rating;
+          selectedStudent = review.student;
+          document.getElementById('reviewTemplate').style.display = 'block';
+        }
+      });
+    }
+
+    // Load reviews initially
+    window.addEventListener('DOMContentLoaded', loadReviews);
   </script>
-  
 
 </body>
 </html>
