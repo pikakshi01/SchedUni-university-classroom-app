@@ -40,8 +40,9 @@ header {
 }
 
 .left-panel img {
-  width: 100%;
-  max-width: 500px;
+  width: 900px;
+  
+  height: 600px;
 }
 
 .work-title {
@@ -156,6 +157,3 @@ td.event {
   font-size: 1rem;
   cursor: pointer;
 }
-
-
-
