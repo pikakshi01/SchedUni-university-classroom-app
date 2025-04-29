@@ -90,9 +90,13 @@
           ? `<p>👤 <a href="se.html" style="color: inherit; text-decoration: underline;">${course.teacher}</a></p>`
           : `<p>👤 ${course.teacher}</p>`;
 
+        const courseNameHTML = (course.name === "Software Engineering")
+          ? `<a href="se.html" style="color: inherit; text-decoration: underline;">${course.name}</a>`
+          : course.name;
+
         container.innerHTML += `
           <div class="card ${course.color}">
-            <h4>${course.name}</h4>
+            <h4>${courseNameHTML}</h4>
             ${teacherHTML}
             <p>🗓️ ${course.day}</p>
             <p>⏰ Due ${course.due}</p>
@@ -222,10 +226,10 @@
     <ul class="nav">
       <li><img src="dashboard image.jpeg" /> <a href="Dashboard.html">Dashboard</a></li>
       <li><img src="academic image.jpeg" /> <a href="insights.html">Academic Insights</a></li>
-      <li><img src="time table image.jpeg" /> Time Table</li>
+      <li><img src="time table image.jpeg" /> Time Table</a></li>
       <li><img src="peer review image.jpeg" /> <a href="peer_review.html">Peer Review</a></li>
       <li><img src="calendar_image.jpeg" /> <a href="todo.html">To-Do List</a></li>
-      <li><img src="announcements image.jpeg" /> Announcements</li>
+      <li><img src="announcements image.jpeg" /><a href="announcement.html">Announcements</a> </li>
       <li><img src="account_settings-.jpeg" /> <a href="settings.html">Account Settings</a></li>
     </ul>
     <div class="logout">
