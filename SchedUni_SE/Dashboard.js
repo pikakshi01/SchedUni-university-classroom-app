@@ -1,18 +1,22 @@
 // Logout Button
 document.getElementById('logoutBtn').addEventListener('click', function() {
-  localStorage.removeItem('facultyLogin');
-  sessionStorage.removeItem('facultyLogin');
+  localStorage.removeItem('username');
+  localStorage.removeItem('password');
   alert('Logged out successfully!');
-  window.location.href = 'login.html'; // Adjust to your actual login page filename
+  window.location.href = 'login.html'; // Redirect to login
 });
 
-// Security: Redirect to login if no session/local storage
+// Security: Redirect to login if not logged in
 window.onload = function() {
-  const localUser = JSON.parse(localStorage.getItem('facultyLogin'));
-  const sessionUser = JSON.parse(sessionStorage.getItem('facultyLogin'));
-  
-  if (!localUser && !sessionUser) {
+  const username = localStorage.getItem('username');
+  const password = localStorage.getItem('password');
+
+  if (!username || !password) {
     alert('Unauthorized access. Please login first.');
-    window.location.href = 'login.html'; // Adjust if your login page is differently named
+    window.location.href = 'login.html';
+  } else {
+    console.log(`Welcome, ${username}`);
+    // Optionally update the page with the username
+    document.querySelector('header h1').textContent = `Welcome, ${username}!`;
   }
 };
