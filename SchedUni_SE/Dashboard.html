@@ -5,8 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Faculty Dashboard | SchedUni</title>
   <link rel="stylesheet" href="Dashboard.css">
+  <style>
+    
+    body {
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    #homeBtn, #settingsBtn {
+      position: absolute;
+      top: 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #homeBtn {
+      left: 10px;
+    }
+
+    #settingsBtn {
+      right: 10px;
+    }
+
+    .dashboard-container {
+      padding-top: 50px; 
+    }
+  </style>
 </head>
 <body>
+
+
+<button id="homeBtn" onclick="window.location.href='homepage.html'">Home</button>
+
+
+<button id="settingsBtn" onclick="window.location.href='settings.html'">P</button>
 
 <div class="dashboard-container">
   <header>
@@ -25,12 +61,9 @@
   </main>
 
 </div>
+
 <link rel="stylesheet" href="Dashboard.css">
 <script src="Dashboard.js" defer></script>
 
-
-
-
-<script src="Dashboard.js"></script>
 </body>
 </html>

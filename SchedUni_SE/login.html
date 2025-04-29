@@ -5,13 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login - SchedUni</title>
   <link rel="stylesheet" href="login.css">
+  <style>
+    /* Add some quick style for the top button */
+    .top-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #007BFF; /* Bootstrap Blue */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .top-button:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+  </style>
 </head>
 <body>
+
+<!-- Faculty Button on Top -->
+<a href="faculty_login.html" class="top-button">Faculty</a>
 
 <div class="login-container">
   <div class="left-side">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZ298-ejgdaVZjz2B1nTU5gWt33GTBKub1Q&s" alt="Man sitting with laptop">
-
   </div>
 
   <div class="right-side">
@@ -29,8 +51,6 @@
         <a href="#" class="forgot-link">Forgot Password?</a>
       </div>
       <button type="submit" class="login-btn">Login</button>
-
-
     </form>
 
     <div class="register-link">
@@ -38,9 +58,8 @@
     </div>
 
     <div class="app-links">
-        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" class="store-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="store-btn">
-        
+      <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" class="store-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="store-btn">
     </div>
   </div>
 </div>

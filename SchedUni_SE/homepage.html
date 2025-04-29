@@ -51,7 +51,6 @@
     .card.brown { background-color: #d1a27e; }
     .card.grey { background-color: #e0e0e0; }
 
-    /* Message styling */
     #message {
       display: none;
       position: fixed;
@@ -73,7 +72,7 @@
       courses = [
         { name: "Project 2", teacher: "Kiran Khattar", day: "Wednesday", due: "Friday", place: "NB 4th Floor", color: "green" },
         { name: "Machine Learning", teacher: "Anantha Rao", day: "Monday & Wednesday", due: "Wednesday", place: "GA 203", color: "blue" },
-        { name: "Software Engineering", teacher: "Nishtha Phutela", day: "Saturday & Monday", due: "Tomorrow", place: "GA 102", color: "red" },
+        { name: "Software Engineering", teacher: "Gautam Gupta", day: "Saturday & Monday", due: "Tomorrow", place: "GA 102", color: "red" },
         { name: "Seminar Case Study", teacher: "Dr. Kiran Khattar", day: "Thursday", due: "12 March", place: "NB 105", color: "orange" },
         { name: "Mobile App Development", teacher: "Gautam Gupta", day: "Tuesday & Thursday", due: "Friday", place: "NB 211", color: "yellow" },
         { name: "Design Thinking", teacher: "Avijit Chakravarty", day: "Wednesday", due: "Wednesday", place: "NB 211", color: "cyan" }
@@ -87,10 +86,14 @@
       const container = document.querySelector(".cards-container");
       container.innerHTML = "";
       courses.forEach((course, index) => {
+        const teacherHTML = (course.teacher === "Nishtha Phutela") 
+          ? `<p>👤 <a href="se.html" style="color: inherit; text-decoration: underline;">${course.teacher}</a></p>`
+          : `<p>👤 ${course.teacher}</p>`;
+
         container.innerHTML += `
           <div class="card ${course.color}">
             <h4>${course.name}</h4>
-            <p>👤 ${course.teacher}</p>
+            ${teacherHTML}
             <p>🗓️ ${course.day}</p>
             <p>⏰ Due ${course.due}</p>
             <p>📍 ${course.place}</p>
@@ -209,7 +212,6 @@
     </form>
   </div>
 
-  <!-- Success Message Div -->
   <div id="message">Message Here</div>
 
   <div class="sidebar">
@@ -244,9 +246,7 @@
       <a href="#">View all >></a>
     </div>
 
-    <div class="cards-container">
-      
-    </div>
+    <div class="cards-container"></div>
 
     <div class="bottom-image">
       <img src="students image.png" alt="Students Illustration" />

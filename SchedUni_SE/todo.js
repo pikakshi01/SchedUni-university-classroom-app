@@ -1,6 +1,6 @@
 // Redirect Home
 document.getElementById('homeButton').addEventListener('click', function() {
-  window.location.href = "home.html"; // your actual homepage
+  window.location.href = "homepage.html"; // your actual homepage
 });
 
 // Calendar Data
