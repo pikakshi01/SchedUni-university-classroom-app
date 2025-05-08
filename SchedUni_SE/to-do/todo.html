@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SchedUni - To-Do Page</title>
+  <link rel="stylesheet" href="todo.css">
+</head>
+<body>
+  <header>
+    <button id="homeButton">Home</button>
+  </header>
+
+  <main class="container">
+    <div class="left-panel">
+      <img src="Baby.png" alt="Work Illustration">
+      <h1 class="work-title">WORK<br>TO<br>DO</h1>
+    </div>
+
+    <div id="taskModal" class="modal hidden">
+      <div class="modal-content">
+        <h2 id="modalDate"></h2>
+        <textarea id="taskInput" placeholder="Enter your task here..."></textarea>
+        <div class="modal-buttons">
+          <button id="saveTask">Save</button>
+          <button id="closeModal">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="right-panel">
+      <div class="month-header">
+        <span>MONTH</span>
+      </div>
+      <div class="calendar">
+        <h2>FEBRUARY</h2>
+        <h3>2025</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+            </tr>
+          </thead>
+          <tbody id="calendar-body">
+            <!-- JS will fill this -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="todo.js"></script>
+</body>
+</html>
